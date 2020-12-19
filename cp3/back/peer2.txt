@@ -1,0 +1,72 @@
+15-441 PROJECT 2 PEER
+
+chunk-file:     C.chunks
+has-chunk-file: B.chunks
+max-conn:       4
+peer-identity:  2
+peer-list-file: nodes.map
+  peer 2: 127.0.0.1:2222
+  peer 1: 127.0.0.1:1111
+PROCESS GET SKELETON CODE CALLED.  Fill me in!  (A.chunks, mmm.tar)
+
+============SEND WHOHAS=================
+
+40
+40
+020000006acfce07d222d400ce900d918306c6664501b33faf91dbd47aac60e980e0369df68271ca
+Sent MAGIC: 1
+NOP!!!
+Spiffy not enabled, using normal recvfrom
+MAGIC: 15441
+VERSION: 1
+PACKET TYPE: 1
+HEADER LENGTH: 16
+TOTAL PACKET LENGTH: 60
+============50026===============DATA LEN: 2
+
+============GET=================
+
+
+0
+DATA NUMBER SENT: 1516
+WAITING COUNT: 0
+CURR POS: 0
+
+============GET=================
+
+
+==============fuck=====================
+PROCESS_INBOUND_UDP SKELETON -- replace!
+Incoming message from 127.0.0.1:50026
+<Q
+
+NOP!!!
+Spiffy not enabled, using normal recvfrom
+MAGIC: 15441
+VERSION: 1
+PACKET TYPE: 3
+HEADER LENGTH: 16
+TOTAL PACKET LENGTH: 1040
+============34797===============
+
+===================RECEIVED DATA===============
+
+
+
+===================SEND ACK===============
+
+SEQ NUM: 1
+DOWNLOAD ID: 0
+EXPECTED SEQ: 1
+CURR POS OF ALL: 0
+REAL LENGTH OF DATALOAD: 1024
+DATA NUMBER SENT: 1516
+WAITING COUNT: 1
+CURR POS: 1024
+
+==============fuck=====================
+PROCESS_INBOUND_UDP SKELETON -- replace!
+Incoming message from 127.0.0.1:34797
+<Q
+
+FILE NAME: 
