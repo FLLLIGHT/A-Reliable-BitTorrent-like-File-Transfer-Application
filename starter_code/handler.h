@@ -1,29 +1,17 @@
-// 报文的头部结构
-typedef struct header_s
-{
-    // magic number，为定值15441
-    short magicnum;
-    // version, 为定值0x01
-    char version;
-    // 根据报文的种类不同，有不同的packet type，取值从0x00到0x05
-    char packet_type;
-    // 报文头部的长度
-    short header_len;
-    // 报文的总长度
-    short packet_len;
-    // 发送的DATA序号，仅在DATA类型的报文中存在
-    u_int seq_num;
-    // 发从的ACK号，进在ACK类型的报文中存在
-    u_int ack_num;
-} header_t;
+#include "packet.h"
 
-// 报文的整体结构
-typedef struct data_packet
-{
-    header_t header;
-    // 用于存放Chunk Hash或文件DATA
-    unsigned char data[1500];
-} data_packet_t;
+#define MAGIC_NUMBER 15441
+#define VERSION 0x01
+#define PACKET_TYPE_WHOHAS 0x00
+#define PACKET_TYPE_IHAVE 0x01
+#define PACKET_TYPE_GET 0x02
+#define PACKET_TYPE_DATA 0x03
+#define PACKET_TYPE_ACK 0x04
+#define PACKET_TYPE_DENIED 0x05
+#define LEN_OF_CHUNK_HASH 20
+// DATA类型的报文一次所发送的数据段的数据量
+#define LEN_OF_SENT_DATA 1024
+#define LEN_OF_PACKET_HEADER 16
 
 // 记录了本peer作为“服务端”时，其他向我方请求数据的peer信息
 typedef struct upload_to_peer_info
@@ -38,6 +26,7 @@ typedef struct upload_to_peer_info
     struct timeval last_sent_time;
     // 当前收到的最大的ack
     int max_ack;
+    int status;
 } upload_to_peer_info_t;
 
 // 记录了本peer作为“客户端”时，正在向对方请求数据的peer信息
@@ -51,18 +40,29 @@ typedef struct download_from_peer_info
     int curr_pos;
     // 期望等待的DATA的序号
     int expected_seq;
+    int status;
 } download_from_peer_info_t;
 
-// 记录了某个peer节点所拥有的Chunk，但由于当前正在从该peer下载数据，而必须等在并在之后在发GET请求进行下载
+// 记录了某个peer节点所拥有的Chunk，但由于当前正在从该peer下载数据，而必须等待并在之后再发GET请求进行下载
 typedef struct waiting_I_HAVE
 {
     // 拥有该chunk的addr
     struct sockaddr_in sockaddr_download_from;
     // chunk的hash
     unsigned char hash_name[20];
-    // 该hash在master chunks中的id
+    // 当前请求的Chunk Hash在Request Chunks中的id
     int request_id;
+    int status;
 } waiting_i_have_t;
+
+typedef struct chunk_status
+{
+    int status;
+    // 在被请求文件中的id（而不是在master chunks中的id）
+    int id;
+    // 在被请求文件中的id对应的hash
+    unsigned char hash[LEN_OF_CHUNK_HASH];
+} chunk_status_t;
 
 void deal_with_ACK(data_packet_t *curr, struct sockaddr_in *from);
 void deal_with_DATA(data_packet_t *curr, struct sockaddr_in *from);
