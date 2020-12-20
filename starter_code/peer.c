@@ -160,6 +160,7 @@ void process_get(char *chunkfile, char *outputfile)
     chunk_status_t *this_chunk_status = malloc(sizeof(chunk_status_t));
     this_chunk_status->id = atoi(request_id_char);
     this_chunk_status->status = 0;
+    memcpy(this_chunk_status->hash, hash_binary, 20);
     memcpy(chunk_status + count, this_chunk_status, sizeof(chunk_status_t));
     count++;
 
@@ -265,7 +266,6 @@ void peer_run(bt_config_t *config)
       }
       if ((c == 0x00 || c == 0x01 || c == 0x03) && (nfds > 0))
       {
-        printf("NOP!!!\n");
         continue;
       }
       struct timeval curr_tv;

@@ -116,6 +116,9 @@ int find_free_waiting_entity()
 int check_hash(unsigned char *data, unsigned char *hash)
 {
     unsigned char data_hash[LEN_OF_CHUNK_HASH];
+    // char data_1[40];
+    // binary2hex(hash, 20, data_1);
+    // printf("%s\n\n\n\n", data_1);
     shahash(data, BT_CHUNK_SIZE, data_hash);
     return memcmp(data_hash, hash, LEN_OF_CHUNK_HASH);
 }
