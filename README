@@ -6,9 +6,9 @@ Author: Zitao Xuan
 
 本实现通过了全部的check point，采用了I/O多路复用方案实现重传，实现简洁。
 
-本实现与https://github.com/DarkYoung/A-BitTorrent-like-file-transfer-application（多线程方案）以及https://github.com/ssjjcao/P2P_BitTorrent（alarm方案）分别采用了三种截然不同的方案，各有优劣。受限于时间，本实现的完成度不及后两者，仍有较大改进空间（见后文）。
+本实现与https://github.com/DarkYoung/A-BitTorrent-like-file-transfer-application （多线程方案）以及https://github.com/ssjjcao/P2P_BitTorrent （alarm方案）分别采用了三种截然不同的方案，各有优劣。受限于时间，本实现的完成度不及后两者，仍有较大改进空间（见后文）。
 
-对于实现细节的详细说明，请参考Design.pdf和https://drive.google.com/file/d/1D9Dl3ri3rmgakl06ci3xeajfRBQCrqUZ/view?usp=sharing（一个对项目实现的说明视频）
+对于实现细节的详细说明，请参考Design.pdf和https://drive.google.com/file/d/1D9Dl3ri3rmgakl06ci3xeajfRBQCrqUZ/view?usp=sharing （一个对项目实现的说明视频）
 
 一些改进/完善的思路：
 1. 实现上传的concurrent（参考下载的concurrent的实现即可）
