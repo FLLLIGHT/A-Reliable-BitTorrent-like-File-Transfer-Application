@@ -270,7 +270,7 @@ void peer_run(bt_config_t *config)
       }
       struct timeval curr_tv;
       gettimeofday(&curr_tv, NULL);
-      if (curr_tv.tv_sec * 1000000 + curr_tv.tv_usec - upload_to_peer_infos[0].last_sent_time.tv_sec * 1000000 - upload_to_peer_infos[0].last_sent_time.tv_usec > 1000000)
+      if (curr_tv.tv_sec * 1000000 + curr_tv.tv_usec - upload_to_peer_infos[0].last_sent_time.tv_sec * 1000000 - upload_to_peer_infos[0].last_sent_time.tv_usec > 500000)
       {
         FILE *fp_master_tar;
         printf("FILE NAME: %s\n", upload_to_peer_infos[0].master_tar_name);
@@ -290,7 +290,7 @@ void peer_run(bt_config_t *config)
         fclose(fp_master_tar);
       }
       next_tv.tv_sec = 1 - (curr_tv.tv_sec - upload_to_peer_infos[0].last_sent_time.tv_sec) - 1;
-      next_tv.tv_usec = 1000000 - (curr_tv.tv_usec - upload_to_peer_infos[0].last_sent_time.tv_usec);
+      next_tv.tv_usec = 500000 - (curr_tv.tv_usec - upload_to_peer_infos[0].last_sent_time.tv_usec);
       printf("NEXT TIME: %ld\n", next_tv.tv_sec * 1000000 + next_tv.tv_usec);
     }
   }
